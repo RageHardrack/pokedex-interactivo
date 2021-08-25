@@ -16,7 +16,7 @@ const props = defineProps({
 const typeColor = computed(() => {
   switch (props.type) {
     case "grass":
-      return "bg-green-200 border-green-600 text-green-600";
+      return "bg-green-300 border-green-800 text-green-800";
 
     case "poison":
       return "bg-purple-200 border-purple-600 text-purple-600";
@@ -28,7 +28,7 @@ const typeColor = computed(() => {
       return "bg-blue-200 border-blue-600 text-blue-600";
 
     case "bug":
-      return "bg-yellow-100 border-yellow-500 text-yellow-500";
+      return "bg-green-50 border-green-400 text-green-400";
 
     case "normal":
       return "bg-gray-200 border-gray-700 text-gray-700";
