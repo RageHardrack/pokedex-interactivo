@@ -1,7 +1,7 @@
 <template>
   <button
     @click="action"
-    class="flex items-center justify-center w-10 h-10 text-white bg-gray-800 rounded-full  hover:opacity-90"
+    class="flex items-center justify-center w-10 h-10 text-white bg-gray-700 rounded-full  hover:opacity-90"
   >
     <svg
       v-if="left"

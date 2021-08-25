@@ -105,11 +105,30 @@ const onSearch = async (query) => {
   }
 };
 
+const showFavorites = async () => {
+  try {
+    if (favorites.value.length > 0) {
+      loading.value = true;
+      const promises = favorites.value.map(async (pokemon) => {
+        return await searchPokemon(pokemon.toLowerCase());
+      });
+
+      pokemons.value = await Promise.all(promises);
+      page.value = 0;
+      totalPages.value = 1;
+      loading.value = false;
+    }
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 provide("loading", loading);
 provide("favorites", favorites);
 provide("lastPage", lastPage);
 provide("nextPage", nextPage);
 provide("updateFavoritePokemons", updateFavoritePokemons);
+provide("showFavorites", showFavorites);
 
 watchEffect(() => {
   if (!searching) fetchPokemons();

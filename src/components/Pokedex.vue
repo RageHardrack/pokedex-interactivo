@@ -1,7 +1,7 @@
 <template>
   <div class="space-y-8">
     <div class="flex items-center justify-between">
-      <h1 class="text-5xl font-bold">Pokedex</h1>
+      <h1 class="text-5xl font-bold">Pokédex</h1>
 
       <Pagination
         :page="page + 1"
