@@ -102,7 +102,7 @@ const onSearch = async (query) => {
     }
 
     loading.value = false;
-    searching.value = true;
+    searching.value = false;
   } catch (error) {
     console.error(error);
   }
@@ -134,7 +134,7 @@ provide("updateFavoritePokemons", updateFavoritePokemons);
 provide("showFavorites", showFavorites);
 
 watchEffect(() => {
-  if (!searching) fetchPokemons();
+  if (!searching.value) fetchPokemons();
 });
 
 onBeforeMount(() => {
