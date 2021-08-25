@@ -9,7 +9,7 @@
 
     <button
       @click="searching"
-      class="flex items-center justify-center text-white bg-blue-800 rounded-full  w-14 h-14 hover:opacity-90"
+      class="flex items-center justify-center text-white bg-gray-800 rounded-full  w-14 h-14 hover:opacity-90"
     >
       <svg
         class="w-10 h-10"
