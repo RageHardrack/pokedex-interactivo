@@ -12,13 +12,11 @@
 
       <div class="flex items-center justify-between">
         <div class="flex justify-between space-x-2">
-          <div
+          <PokeType
             v-for="(type, idx) in pokemon.types"
-            class="capitalize"
             :key="idx"
-          >
-            {{ type.type.name }}
-          </div>
+            :type="type.type.name"
+          />
         </div>
 
         <button @click="updateFavoritePokemons(pokemon.name)">
@@ -35,6 +33,7 @@
 <script setup>
 import { inject } from "vue";
 import Heart from "./Heart.vue";
+import PokeType from "./PokeType.vue";
 
 const props = defineProps({
   pokemon: { type: Object },
