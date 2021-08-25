@@ -13,7 +13,7 @@ Poniendo a prueba mis conocimientos para crear este Pokedex interactivo, utiliza
 - [x] Ver todos los pokemones usando [PokeAPI](https://pokeapi.co/).
 - [x] Poder buscar un pokemon usando la barra de búsqueda.
 - [x] Guardar tus pokemones favoritos en `localStorage`.
-- [ ] Al apretar en el corazón ver tus pokemones favoritos.
+- [x] Al apretar en el corazón ver tus pokemones favoritos.
 - [x] Paginación.
 
 ## Demo

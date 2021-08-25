@@ -21,7 +21,9 @@
       />
     </main>
 
-    <footer>Realizado para Codealo</footer>
+    <footer class="w-full bg-gray-700">
+      <TheFooter />
+    </footer>
   </div>
 </template>
 
@@ -32,6 +34,7 @@ import { getPokeData, getPokemons, searchPokemon } from "./services/pokeapi";
 import Pokedex from "./components/Pokedex.vue";
 import SearchBar from "./components/SearchBar.vue";
 import TheNavbar from "./components/TheNavbar.vue";
+import TheFooter from "./components/TheFooter.vue";
 
 const pokemons = ref([]);
 const page = ref(0);
