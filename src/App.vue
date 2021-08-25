@@ -1,19 +1,12 @@
 <template>
   <div
-    class="
-      flex flex-col
-      h-screen
-      items-center
-      justify-center
-      bg-gray-100
-      space-y-4
-    "
+    class="flex flex-col items-center justify-center h-screen space-y-4 bg-gray-100 "
   >
-    <header>
+    <header class="w-full">
       <TheNavbar />
     </header>
 
-    <main class="flex-1 container space-y-8">
+    <main class="container flex-1 space-y-8">
       <SearchBar />
       <Pokedex :pokemons="pokemons" />
     </main>
@@ -24,7 +17,7 @@
 
 <script setup>
 import { onBeforeMount, ref } from "vue";
-import { getPokemons } from "./services/pokeapi";
+import { getPokeData, getPokemons } from "./services/pokeapi";
 
 import Pokedex from "./components/Pokedex.vue";
 import SearchBar from "./components/SearchBar.vue";
@@ -35,8 +28,11 @@ const pokemons = ref([]);
 const fetchPokemons = async () => {
   try {
     const { results } = await getPokemons();
-    pokemons.value = results;
-    console.log(results);
+    const promises = results.map(async (pokemon) => {
+      return await getPokeData(pokemon.url);
+    });
+
+    pokemons.value = await Promise.all(promises);
   } catch (error) {
     console.error(error);
   }

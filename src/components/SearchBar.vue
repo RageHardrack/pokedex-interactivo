@@ -2,24 +2,14 @@
   <div class="flex items-center w-full justify-evenly">
     <input
       type="search"
-      class="p-4 rounded shadow-lg w-3/5"
+      class="w-3/5 p-4 rounded shadow-lg"
       placeholder="Buscar Pokemon..."
       v-model="search"
     />
 
     <button
       @click="searching"
-      class="
-        w-14
-        h-14
-        flex
-        justify-center
-        items-center
-        rounded-full
-        bg-blue-800
-        hover:opacity-90
-        text-white
-      "
+      class="flex items-center justify-center text-white bg-blue-800 rounded-full  w-14 h-14 hover:opacity-90"
     >
       <svg
         class="w-10 h-10"
@@ -46,9 +36,11 @@ import { ref } from "vue";
 import { searchPokemon } from "../services/pokeapi";
 
 const search = ref("");
+const pokemon = ref();
 
 const searching = async () => {
   const data = await searchPokemon(search.value);
   console.log(data);
+  pokemon.value = data;
 };
 </script>
