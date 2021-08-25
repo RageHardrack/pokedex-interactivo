@@ -14,7 +14,7 @@ Poniendo a prueba mis conocimientos para crear este Pokedex interactivo, utiliza
 - [ ] Poder buscar un pokemon usando la barra de búsqueda.
 - [ ] Guardar tus pokemones favoritos en `localStorage`.
 - [ ] Al apretar en el corazón ver tus pokemones favoritos.
-- [ ] Paginación.
+- [x] Paginación.
 
 ## Demo
 

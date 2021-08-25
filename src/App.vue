@@ -26,37 +26,55 @@ import TheNavbar from "./components/TheNavbar.vue";
 
 const pokemons = ref([]);
 const page = ref(0);
-const totalPages = ref(100);
+const totalPages = ref(0);
 const loading = ref(false);
+const favorites = ref([]);
 
 const fetchPokemons = async () => {
   try {
     loading.value = true;
-    const { results } = await getPokemons(25, page.value * 25);
+    const { count, results } = await getPokemons(25, page.value * 25);
     const promises = results.map(async (pokemon) => {
       return await getPokeData(pokemon.url);
     });
 
     pokemons.value = await Promise.all(promises);
     loading.value = false;
+    totalPages.value = Math.ceil(count / 25);
   } catch (error) {
     console.error(error);
   }
 };
 
-provide("loading", loading);
-
 const lastPage = () => {
   page.value = Math.max(page.value - 1, 0);
 };
-provide("lastPage", lastPage);
 
 const nextPage = () => {
   page.value = Math.min(page.value + 1, totalPages.value);
 };
+
+const updateFavoritePokemons = (pokeName) => {
+  if (favorites.value.includes(pokeName)) {
+    favorites.value = favorites.value.filter((pokemon) => pokemon !== pokeName);
+  } else {
+    favorites.value.push(pokeName);
+  }
+
+  localStorage.setItem("favoritesPokemons", JSON.stringify(favorites.value));
+};
+
+provide("loading", loading);
+provide("favorites", favorites);
+provide("lastPage", lastPage);
 provide("nextPage", nextPage);
+provide("updateFavoritePokemons", updateFavoritePokemons);
 
 watchEffect(() => fetchPokemons());
 
-onBeforeMount(() => fetchPokemons());
+onBeforeMount(() => {
+  fetchPokemons();
+  favorites.value = JSON.parse(localStorage.getItem("favoritesPokemons")) || [];
+  console.log(JSON.parse(localStorage.getItem("favoritesPokemons")));
+});
 </script>

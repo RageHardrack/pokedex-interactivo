@@ -21,18 +21,25 @@
           </div>
         </div>
 
-        <div>
-          <Heart customClass="w-6 h-6" :active="false" />
-        </div>
+        <button @click="updateFavoritePokemons(pokemon.name)">
+          <Heart
+            customClass="w-6 h-6"
+            :active="favorites.includes(pokemon.name)"
+          />
+        </button>
       </div>
     </div>
   </div>
 </template>
 
 <script setup>
+import { inject } from "vue";
 import Heart from "./Heart.vue";
 
 const props = defineProps({
   pokemon: { type: Object },
 });
+
+const favorites = inject("favorites");
+const updateFavoritePokemons = inject("updateFavoritePokemons");
 </script>

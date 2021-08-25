@@ -39,7 +39,7 @@ const search = ref("");
 const pokemon = ref();
 
 const searching = async () => {
-  const data = await searchPokemon(search.value);
+  const data = await searchPokemon(search.value.toLowerCase());
   console.log(data);
   pokemon.value = data;
 };
