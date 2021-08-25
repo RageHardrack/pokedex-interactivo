@@ -5,10 +5,11 @@
       class="w-3/5 p-4 rounded shadow-lg"
       placeholder="Buscar Pokemon..."
       v-model="search"
+      @input="resetSearch"
     />
 
     <button
-      @click="searching"
+      @click="onSearch(search)"
       class="flex items-center justify-center text-white bg-gray-800 rounded-full  w-14 h-14 hover:opacity-90"
     >
       <svg
@@ -32,15 +33,17 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { searchPokemon } from "../services/pokeapi";
+import { ref, defineProps } from "vue";
+
+const props = defineProps({
+  onSearch: { type: Function },
+});
 
 const search = ref("");
-const pokemon = ref();
 
-const searching = async () => {
-  const data = await searchPokemon(search.value.toLowerCase());
-  console.log(data);
-  pokemon.value = data;
+const resetSearch = () => {
+  if (search.value.trim() === "") {
+    props.onSearch(null);
+  }
 };
 </script>

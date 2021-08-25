@@ -1,6 +1,6 @@
 <template>
   <div class="flex items-center space-x-4 bg-white rounded shadow-2xl">
-    <div class="flex items-center justify-center w-24 h-24">
+    <div class="flex items-center justify-center w-24 h-24 px-2">
       <img :src="pokemon.sprites.front_default" :alt="`${pokemon.name}`" />
     </div>
 

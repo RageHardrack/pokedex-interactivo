@@ -7,9 +7,18 @@
     </header>
 
     <main class="container flex-grow space-y-8">
-      <SearchBar />
+      <SearchBar :onSearch="onSearch" />
 
-      <Pokedex :pokemons="pokemons" :page="page" :totalPages="totalPages" />
+      <h2 class="text-6xl font-bold text-center" v-if="notFound">
+        No se encontró el Pokémon que estás buscando...
+      </h2>
+
+      <Pokedex
+        v-else
+        :pokemons="pokemons"
+        :page="page"
+        :totalPages="totalPages"
+      />
     </main>
 
     <footer>Realizado para Codealo</footer>
@@ -18,7 +27,7 @@
 
 <script setup>
 import { onBeforeMount, provide, ref, watchEffect } from "vue";
-import { getPokeData, getPokemons } from "./services/pokeapi";
+import { getPokeData, getPokemons, searchPokemon } from "./services/pokeapi";
 
 import Pokedex from "./components/Pokedex.vue";
 import SearchBar from "./components/SearchBar.vue";
@@ -28,7 +37,11 @@ const pokemons = ref([]);
 const page = ref(0);
 const totalPages = ref(0);
 const loading = ref(false);
-const favorites = ref([]);
+const notFound = ref(false);
+const searching = ref(false);
+const favorites = ref(
+  JSON.parse(localStorage.getItem("favoritesPokemons")) || []
+);
 
 const fetchPokemons = async () => {
   try {
@@ -41,6 +54,7 @@ const fetchPokemons = async () => {
     pokemons.value = await Promise.all(promises);
     loading.value = false;
     totalPages.value = Math.ceil(count / 25);
+    notFound.value = false;
   } catch (error) {
     console.error(error);
   }
@@ -64,17 +78,44 @@ const updateFavoritePokemons = (pokeName) => {
   localStorage.setItem("favoritesPokemons", JSON.stringify(favorites.value));
 };
 
+const onSearch = async (query) => {
+  try {
+    if (!query) {
+      return fetchPokemons();
+    }
+
+    loading.value = true;
+    searching.value = true;
+    const result = await searchPokemon(query.toLowerCase());
+
+    if (result) {
+      pokemons.value = [result];
+      page.value = 0;
+      totalPages.value = 1;
+    } else {
+      notFound.value = true;
+      loading.value = false;
+      return;
+    }
+
+    loading.value = false;
+    searching.value = true;
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 provide("loading", loading);
 provide("favorites", favorites);
 provide("lastPage", lastPage);
 provide("nextPage", nextPage);
 provide("updateFavoritePokemons", updateFavoritePokemons);
 
-watchEffect(() => fetchPokemons());
+watchEffect(() => {
+  if (!searching) fetchPokemons();
+});
 
 onBeforeMount(() => {
   fetchPokemons();
-  favorites.value = JSON.parse(localStorage.getItem("favoritesPokemons")) || [];
-  console.log(JSON.parse(localStorage.getItem("favoritesPokemons")));
 });
 </script>

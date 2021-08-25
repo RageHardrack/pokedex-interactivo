@@ -11,8 +11,8 @@ Poniendo a prueba mis conocimientos para crear este Pokedex interactivo, utiliza
 ## El proyecto debería:
 
 - [x] Ver todos los pokemones usando [PokeAPI](https://pokeapi.co/).
-- [ ] Poder buscar un pokemon usando la barra de búsqueda.
-- [ ] Guardar tus pokemones favoritos en `localStorage`.
+- [x] Poder buscar un pokemon usando la barra de búsqueda.
+- [x] Guardar tus pokemones favoritos en `localStorage`.
 - [ ] Al apretar en el corazón ver tus pokemones favoritos.
 - [x] Paginación.
 
